@@ -1,6 +1,12 @@
 #!/bin/bash
 set -e
 
+CLOUD_VPS_INSTANCE="wikibase-product-testing-2022.wikidata-dev.eqiad1.wikimedia.cloud";
+if [ $(hostname -f) != "$CLOUD_VPS_INSTANCE" ] ; then
+    echo "This script must only be run at $CLOUD_VPS_INSTANCE Wikimedia Cloud VPS instance.";
+    exit 1;
+fi
+
 if [ -z "$IMAGE_PREFIX" ] ; then
     echo "Variable \$IMAGE_PREFIX is required but is not set.";
     exit 1;
