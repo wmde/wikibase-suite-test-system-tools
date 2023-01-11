@@ -1,0 +1,11 @@
+$wgWBRepoSettings['federatedPropertiesEnabled'] = true;
+
+# simulate source API errors via request header
+if( isset ( $_SERVER['HTTP_X_FEDPROPS_SOURCEAPIRESPONSE'] ) ) {
+   $wgParserCacheType = CACHE_NONE;
+   $code = $_SERVER['HTTP_X_FEDPROPS_SOURCEAPIRESPONSE'];
+
+   if( $code == 404 ) {
+      $wgWBRepoSettings['federatedPropertiesSourceScriptUrl'] = 'http://notFound.404';
+   }
+}

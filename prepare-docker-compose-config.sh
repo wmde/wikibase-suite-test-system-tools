@@ -7,6 +7,9 @@ if [ $(hostname -f) != "$CLOUD_VPS_INSTANCE" ] ; then
     exit 1;
 fi
 
+# https://stackoverflow.com/questions/59895/how-do-i-get-the-directory-where-a-bash-script-is-located-from-within-the-script
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
 if [ -z "$IMAGE_PREFIX" ] ; then
     echo "Variable \$IMAGE_PREFIX is required but is not set.";
     exit 1;
@@ -90,12 +93,10 @@ echo "QUICKSTATEMENTS_PORT=${PORT_BASE}82" >> ./.env
 sed -i 's/WB_PUBLIC_SCHEME_HOST_AND_PORT=http:\/\/${WIKIBASE_HOST}:${WIKIBASE_PORT}/WB_PUBLIC_SCHEME_HOST_AND_PORT=${WB_PUBLIC_SCHEME_HOST_AND_PORT}/' ./docker-compose.extra.yml
 
 # Create an extra LocalSettings.php file to load
-wget https://gist.githubusercontent.com/addshore/760b770427eb81d4d1ee14eb331246ea/raw/e0854a6593ca40afecab69ed1aa437b40cae53ba/extra-localsettings.txt
-mv extra-localsettings.txt ./extra.LocalSettings.php
+cp $SCRIPT_DIR/extra-localsettings.txt ./extra.LocalSettings.php
 sed -i 's/#- .\/LocalSettings.php:\/var\/www\/html\/LocalSettings.d\/LocalSettings.override.php/- .\/extra.LocalSettings.php:\/var\/www\/html\/LocalSettings.d\/LocalSettings.extra.php/' ./docker-compose.yml
 
 if [[ "$TEST_SYSTEM" == *"fedprop"* ]]; then
   echo "Configuring federated properties"
-  wget https://gist.githubusercontent.com/addshore/760b770427eb81d4d1ee14eb331246ea/raw/e0854a6593ca40afecab69ed1aa437b40cae53ba/extra-localsettings-fedprops.txt
-  cat extra-localsettings-fedprops.txt >> ./extra.LocalSettings.php
+  cp $SCRIPT_DIR/extra-localsettings-fedprops.txt >> ./extra.LocalSettings.php
 fi

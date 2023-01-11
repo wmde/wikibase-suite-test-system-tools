@@ -1,0 +1,18 @@
+<?php
+wfLoadExtension( 'ConfirmEdit/QuestyCaptcha' );
+$wgCaptchaQuestions = [
+  'What animal' => 'dog',
+];
+
+$wgCaptchaTriggers['createaccount'] = true;
+$wgNamespaceProtection[NS_MAIN] = ['move'];
+$wgNamespaceProtection[NS_TALK] = ['move'];
+$wgNamespaceProtection[NS_USER] = ['move'];
+$wgNamespaceProtection[NS_USER_TALK] = ['move'];
+
+error_reporting( -1 );
+ini_set( 'display_errors', 1 );
+$wgShowExceptionDetails = true;
+$wgShowSQLErrors = true;
+$wgDebugDumpSql  = true;
+$wgShowDBErrorBacktrace = true;
