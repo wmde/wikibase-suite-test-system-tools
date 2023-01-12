@@ -11,8 +11,7 @@ fi
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 if [ -z "$IMAGE_PREFIX" ] ; then
-    echo "Variable \$IMAGE_PREFIX is required but is not set.";
-    exit 1;
+    IMAGE_PREFIX=""
 fi
 
 if [ -z "$TEST_SYSTEM" ] ; then
