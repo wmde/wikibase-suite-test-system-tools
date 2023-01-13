@@ -97,5 +97,5 @@ sed -i 's/#- .\/LocalSettings.php:\/var\/www\/html\/LocalSettings.d\/LocalSettin
 
 if [[ "$TEST_SYSTEM" == *"fedprop"* ]]; then
   echo "Configuring federated properties"
-  cp $SCRIPT_DIR/extra-localsettings-fedprops.txt >> ./extra.LocalSettings.php
+  cat $SCRIPT_DIR/extra-localsettings-fedprops.txt >> ./extra.LocalSettings.php
 fi
