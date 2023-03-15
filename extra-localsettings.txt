@@ -10,7 +10,7 @@ $wgNamespaceProtection[NS_TALK] = ['move'];
 $wgNamespaceProtection[NS_USER] = ['move'];
 $wgNamespaceProtection[NS_USER_TALK] = ['move'];
 
-error_reporting( -1 );
+error_reporting( E_ALL ^ E_DEPRECATED );
 ini_set( 'display_errors', 1 );
 $wgShowExceptionDetails = true;
 $wgShowSQLErrors = true;
